@@ -23,7 +23,12 @@ public class MappingProfile : Profile
         CreateMap<Recovered, RecoveredResponseDto>().ReverseMap();
 
         // DailyReport
-        CreateMap<DailyReport, DailyReportResponseDto>().ReverseMap();
+        CreateMap<DailyReport, DailyReportResponseDto>()
+            .ForMember(dest => dest.CountryRegion,
+                       opt => opt.MapFrom(src => src.Location.CountryRegion))
+            .ForMember(dest => dest.ProvinceState,
+                       opt => opt.MapFrom(src => src.Location.ProvinceState))
+            .ForMember(dest => dest.DailyIncrease, opt => opt.Ignore());
 
         // Location
         CreateMap<Location, LocationResponseDto>().ReverseMap();

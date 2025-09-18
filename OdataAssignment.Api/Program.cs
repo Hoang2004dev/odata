@@ -23,19 +23,25 @@ namespace OdataAssignment.Api
                        .OrderBy()
                        .Expand()
                        .Count()
-                       .SetMaxTop(100)               
-                       .EnableQueryFeatures(100)    
+                       .SetMaxTop(null)
+                       .EnableQueryFeatures()
                        .AddRouteComponents("odata", EdmModelBuilder.GetEdmModel()));
 
             // Swagger/OpenAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            var app = builder.Build();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowVite",
+                    policy => policy
+                        .WithOrigins("http://localhost:5173") 
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials());
+            });
 
-            // -----------------------------
-            // Configure the HTTP pipeline
-            // -----------------------------
+            var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
             {
@@ -46,6 +52,9 @@ namespace OdataAssignment.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowVite");
+
             app.UseAuthorization();
 
             app.MapControllers();

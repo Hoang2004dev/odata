@@ -1,7 +1,7 @@
 ﻿namespace OdataAssignment.Application.Interfaces.Repositories;
 
-public interface IRepository<T> where T : class
+public interface IRepository<T, TKey> where T : class
 {
-    Task<T?> GetByIdAsync(long id);
-    //Task<IEnumerable<T>> GetAllAsync();
+    IQueryable<T> Query();
+    Task<T?> GetByIdAsync(TKey id);
 }

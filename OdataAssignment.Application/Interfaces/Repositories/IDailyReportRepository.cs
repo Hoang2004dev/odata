@@ -2,7 +2,9 @@
 
 namespace OdataAssignment.Application.Interfaces.Repositories;
 
-public interface IDailyReportRepository : IRepository<DailyReport>
+public interface IDailyReportRepository : IRepository<DailyReport, long>
 {
-    IQueryable<DailyReport> Query();
+    Task<DailyReport?> GetByLocationAndDateAsync(int locationId, DateTime date);
+    Task<List<DailyReport>> GetByDateAsync(DateTime date);
+    Task<List<DailyReport>> GetByLocationAsync(int locationId);
 }

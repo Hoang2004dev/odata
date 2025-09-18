@@ -2,7 +2,4 @@
 
 namespace OdataAssignment.Application.Interfaces.Repositories;
 
-public interface ILocationRepository : IRepository<Location>
-{
-    IQueryable<Location> Query();
-}
+public interface ILocationRepository : IRepository<Location, int> { }

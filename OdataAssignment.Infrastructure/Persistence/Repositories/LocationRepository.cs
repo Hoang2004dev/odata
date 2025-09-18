@@ -4,15 +4,7 @@ using OdataAssignment.Domain.Entities;
 
 namespace OdataAssignment.Infrastructure.Persistence.Repositories;
 
-public class LocationRepository : ILocationRepository
+public class LocationRepository : Repository<Location, int>, ILocationRepository
 {
-    private readonly CovidDbContext _context;
-
-    public LocationRepository(CovidDbContext context) => _context = context;
-
-    public IQueryable<Location> Query() =>
-        _context.Locations.AsNoTracking();
-
-    public async Task<Location?> GetByIdAsync(long id) =>
-        await _context.Locations.AsNoTracking().FirstOrDefaultAsync(l => l.LocationId == id);
+    public LocationRepository(CovidDbContext context) : base(context) { }
 }

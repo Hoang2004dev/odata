@@ -2,7 +2,4 @@
 
 namespace OdataAssignment.Application.Interfaces.Repositories;
 
-public interface IConfirmedRepository : IRepository<Confirmed>
-{
-    IQueryable<Confirmed> Query();
-}
+public interface IConfirmedRepository : IRepository<Confirmed, long> { }

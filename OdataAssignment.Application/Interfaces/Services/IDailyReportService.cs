@@ -1,5 +1,4 @@
-﻿using OdataAssignment.Application.DTOs.Confirmed;
-using OdataAssignment.Application.DTOs.DailyReport;
+﻿using OdataAssignment.Application.DTOs.DailyReport;
 
 namespace OdataAssignment.Application.Interfaces.Services;
 
