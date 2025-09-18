@@ -1,0 +1,12 @@
+﻿namespace OdataAssignment.Domain.Entities;
+
+public class Recovered
+{
+    public long RecordId { get; set; }
+    public int LocationId { get; set; }
+    public DateTime RecordDate { get; set; }
+    public int Quantity { get; set; }
+
+    // Navigation property
+    public Location Location { get; set; } = null!;
+}
