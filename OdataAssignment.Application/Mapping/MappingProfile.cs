@@ -5,7 +5,6 @@ using OdataAssignment.Application.DTOs.Death;
 using OdataAssignment.Application.DTOs.Location;
 using OdataAssignment.Application.DTOs.Recovered;
 using OdataAssignment.Domain.Entities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OdataAssignment.Application.Mapping;
 
@@ -13,24 +12,22 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        // Confirmed
-        CreateMap<Confirmed, ConfirmedResponseDto>().ReverseMap();
+        CreateMap<Confirmed, ConfirmedResponseDto>()
+            .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location))
+            .ReverseMap();
 
-        // Death
-        CreateMap<Death, DeathResponseDto>().ReverseMap();
+        CreateMap<Death, DeathResponseDto>()
+            .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location))
+            .ReverseMap();
 
-        // Recovered
-        CreateMap<Recovered, RecoveredResponseDto>().ReverseMap();
+        CreateMap<Recovered, RecoveredResponseDto>()
+            .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location))
+            .ReverseMap();
 
-        // DailyReport
         CreateMap<DailyReport, DailyReportResponseDto>()
-            .ForMember(dest => dest.CountryRegion,
-                       opt => opt.MapFrom(src => src.Location.CountryRegion))
-            .ForMember(dest => dest.ProvinceState,
-                       opt => opt.MapFrom(src => src.Location.ProvinceState))
-            .ForMember(dest => dest.DailyIncrease, opt => opt.Ignore());
+            .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location))
+            .ReverseMap();
 
-        // Location
         CreateMap<Location, LocationResponseDto>().ReverseMap();
     }
 }

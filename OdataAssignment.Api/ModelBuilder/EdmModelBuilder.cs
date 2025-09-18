@@ -20,6 +20,18 @@ public static class EdmModelBuilder
         builder.EntitySet<RecoveredResponseDto>("Recovered");
         builder.EntitySet<DailyReportResponseDto>("DailyReports");
 
+        builder.EntityType<ConfirmedResponseDto>()
+               .HasRequired(c => c.Location);
+
+        builder.EntityType<DeathResponseDto>()
+               .HasRequired(d => d.Location);
+
+        builder.EntityType<RecoveredResponseDto>()
+               .HasRequired(r => r.Location);
+
+        builder.EntityType<DailyReportResponseDto>()
+               .HasRequired(dr => dr.Location);
+
         return builder.GetEdmModel();
     }
 }

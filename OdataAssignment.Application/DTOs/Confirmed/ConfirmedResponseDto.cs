@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OdataAssignment.Application.DTOs.Location;
+using System.ComponentModel.DataAnnotations;
 
 namespace OdataAssignment.Application.DTOs.Confirmed;
 
@@ -9,4 +10,6 @@ public class ConfirmedResponseDto
     public int LocationId { get; set; }
     public DateTime RecordDate { get; set; }
     public int Quantity { get; set; }
+
+    public LocationResponseDto Location { get; set; } = null!;
 }
