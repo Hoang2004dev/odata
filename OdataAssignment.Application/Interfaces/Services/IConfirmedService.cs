@@ -4,7 +4,6 @@ namespace OdataAssignment.Application.Interfaces.Services;
 
 public interface IConfirmedService
 {
-    Task<IEnumerable<ConfirmedResponseDto>> GetAllAsync();
-    Task<IEnumerable<ConfirmedResponseDto>> GetByFilterAsync(ConfirmedRequestDto request);
+    IQueryable<ConfirmedResponseDto> Query();
     Task<ConfirmedResponseDto?> GetByIdAsync(long id);
 }

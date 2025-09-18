@@ -1,10 +1,10 @@
-﻿using OdataAssignment.Application.DTOs.Location;
+﻿using OdataAssignment.Application.DTOs.Confirmed;
+using OdataAssignment.Application.DTOs.Location;
 
 namespace OdataAssignment.Application.Interfaces.Services;
 
 public interface ILocationService
 {
-    Task<IEnumerable<LocationResponseDto>> GetAllAsync();
+    IQueryable<LocationResponseDto> Query();
     Task<LocationResponseDto?> GetByIdAsync(int id);
-    Task<IEnumerable<LocationResponseDto>> SearchAsync(LocationRequestDto request);
 }

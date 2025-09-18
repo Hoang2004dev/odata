@@ -14,7 +14,6 @@ public static class EdmModelBuilder
     {
         var builder = new ODataConventionModelBuilder();
 
-        // Map DTOs trả về qua OData
         builder.EntitySet<LocationResponseDto>("Locations");
         builder.EntitySet<ConfirmedResponseDto>("Confirmed");
         builder.EntitySet<DeathResponseDto>("Deaths");

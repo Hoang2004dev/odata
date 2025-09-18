@@ -10,19 +10,9 @@ public class ConfirmedRepository : IConfirmedRepository
 
     public ConfirmedRepository(CovidDbContext context) => _context = context;
 
+    public IQueryable<Confirmed> Query() =>
+        _context.Confirmed.AsNoTracking();
+
     public async Task<Confirmed?> GetByIdAsync(long id) =>
-        await _context.Confirmed.FindAsync(id);
-
-    public async Task<IEnumerable<Confirmed>> GetAllAsync() =>
-        await _context.Confirmed.ToListAsync();
-
-    public async Task<IEnumerable<Confirmed>> GetByLocationAsync(int locationId) =>
-        await _context.Confirmed
-            .Where(c => c.LocationId == locationId)
-            .ToListAsync();
-
-    public async Task<IEnumerable<Confirmed>> GetByDateRangeAsync(DateTime startDate, DateTime endDate) =>
-        await _context.Confirmed
-            .Where(c => c.RecordDate >= startDate && c.RecordDate <= endDate)
-            .ToListAsync();
+        await _context.Confirmed.AsNoTracking().FirstOrDefaultAsync(c => c.RecordId == id);
 }

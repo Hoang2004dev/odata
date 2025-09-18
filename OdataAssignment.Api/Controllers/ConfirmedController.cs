@@ -12,11 +12,10 @@ public class ConfirmedController : ODataController
 
     public ConfirmedController(IConfirmedService service) => _service = service;
 
-    [EnableQuery]
-    public async Task<IActionResult> Get()
+    [EnableQuery(PageSize = 100)]
+    public IActionResult Get()
     {
-        var result = await _service.GetAllAsync();
-        return Ok(result);
+        return Ok(_service.Query());
     }
 
     [EnableQuery]

@@ -1,10 +1,10 @@
-﻿using OdataAssignment.Application.DTOs.Recovered;
+﻿using OdataAssignment.Application.DTOs.Confirmed;
+using OdataAssignment.Application.DTOs.Recovered;
 
 namespace OdataAssignment.Application.Interfaces.Services;
 
 public interface IRecoveredService
 {
-    Task<IEnumerable<RecoveredResponseDto>> GetAllAsync();
-    Task<IEnumerable<RecoveredResponseDto>> GetByFilterAsync(RecoveredRequestDto request);
+    IQueryable<RecoveredResponseDto> Query();
     Task<RecoveredResponseDto?> GetByIdAsync(long id);
 }

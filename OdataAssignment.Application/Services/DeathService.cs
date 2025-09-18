@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using OdataAssignment.Application.DTOs.Death;
 using OdataAssignment.Application.Interfaces.Repositories;
 using OdataAssignment.Application.Interfaces.Services;
-using OdataAssignment.Domain.Entities;
 
 namespace OdataAssignment.Application.Services;
 
@@ -17,19 +17,8 @@ public class DeathService : IDeathService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<DeathResponseDto>> GetAllAsync()
-        => _mapper.Map<IEnumerable<DeathResponseDto>>(await _repo.GetAllAsync());
-
-    public async Task<IEnumerable<DeathResponseDto>> GetByFilterAsync(DeathRequestDto request)
-    {
-        if (request.LocationId.HasValue)
-            return _mapper.Map<IEnumerable<DeathResponseDto>>(await _repo.GetByLocationAsync(request.LocationId.Value));
-
-        if (request.StartDate.HasValue && request.EndDate.HasValue)
-            return _mapper.Map<IEnumerable<DeathResponseDto>>(await _repo.GetByDateRangeAsync(request.StartDate.Value, request.EndDate.Value));
-
-        return await GetAllAsync();
-    }
+    public IQueryable<DeathResponseDto> Query()
+        => _repo.Query().ProjectTo<DeathResponseDto>(_mapper.ConfigurationProvider);
 
     public async Task<DeathResponseDto?> GetByIdAsync(long id)
         => _mapper.Map<DeathResponseDto>(await _repo.GetByIdAsync(id));

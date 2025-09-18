@@ -7,8 +7,6 @@ public class Location
     public string? ProvinceState { get; set; }
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
-
-    // Navigation properties
     public ICollection<Confirmed> ConfirmedCases { get; set; } = new List<Confirmed>();
     public ICollection<Death> Deaths { get; set; } = new List<Death>();
     public ICollection<Recovered> RecoveredCases { get; set; } = new List<Recovered>();

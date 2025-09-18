@@ -6,7 +6,5 @@ public class Recovered
     public int LocationId { get; set; }
     public DateTime RecordDate { get; set; }
     public int Quantity { get; set; }
-
-    // Navigation property
     public Location Location { get; set; } = null!;
 }

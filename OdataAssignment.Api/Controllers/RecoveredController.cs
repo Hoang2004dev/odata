@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
-using OdataAssignment.Application.DTOs.Recovered;
 using OdataAssignment.Application.Interfaces.Services;
 
 namespace OdataAssignment.Api.Controllers;
@@ -12,12 +11,9 @@ public class RecoveredController : ODataController
 
     public RecoveredController(IRecoveredService service) => _service = service;
 
-    [EnableQuery]
-    public async Task<IActionResult> Get()
-    {
-        var result = await _service.GetAllAsync();
-        return Ok(result);
-    }
+    [EnableQuery(PageSize = 100)]
+    public IActionResult Get()
+        => Ok(_service.Query());
 
     [EnableQuery]
     public async Task<IActionResult> Get(long key)

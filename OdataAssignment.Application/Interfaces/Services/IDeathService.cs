@@ -1,10 +1,11 @@
-﻿using OdataAssignment.Application.DTOs.Death;
+﻿using OdataAssignment.Application.DTOs.Confirmed;
+using OdataAssignment.Application.DTOs.DailyReport;
+using OdataAssignment.Application.DTOs.Death;
 
 namespace OdataAssignment.Application.Interfaces.Services;
 
 public interface IDeathService
 {
-    Task<IEnumerable<DeathResponseDto>> GetAllAsync();
-    Task<IEnumerable<DeathResponseDto>> GetByFilterAsync(DeathRequestDto request);
+    IQueryable<DeathResponseDto> Query();
     Task<DeathResponseDto?> GetByIdAsync(long id);
 }

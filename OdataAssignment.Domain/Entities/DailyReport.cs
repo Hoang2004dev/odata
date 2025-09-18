@@ -23,7 +23,5 @@ public class DailyReport
     public DateTime? ReportDate { get; set; }
     public long? PeopleTested { get; set; }
     public double? MortalityRate { get; set; }
-
-    // Navigation property
     public Location Location { get; set; } = null!;
 }

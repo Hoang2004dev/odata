@@ -10,19 +10,9 @@ public class RecoveredRepository : IRecoveredRepository
 
     public RecoveredRepository(CovidDbContext context) => _context = context;
 
+    public IQueryable<Recovered> Query() =>
+        _context.Recovered.AsNoTracking();
+
     public async Task<Recovered?> GetByIdAsync(long id) =>
-        await _context.Recovered.FindAsync(id);
-
-    public async Task<IEnumerable<Recovered>> GetAllAsync() =>
-        await _context.Recovered.ToListAsync();
-
-    public async Task<IEnumerable<Recovered>> GetByLocationAsync(int locationId) =>
-        await _context.Recovered
-            .Where(r => r.LocationId == locationId)
-            .ToListAsync();
-
-    public async Task<IEnumerable<Recovered>> GetByDateRangeAsync(DateTime startDate, DateTime endDate) =>
-        await _context.Recovered
-            .Where(r => r.RecordDate >= startDate && r.RecordDate <= endDate)
-            .ToListAsync();
+        await _context.Recovered.AsNoTracking().FirstOrDefaultAsync(r => r.RecordId == id);
 }

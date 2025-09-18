@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using OdataAssignment.Application.DTOs.Confirmed;
 using OdataAssignment.Application.Interfaces.Repositories;
 using OdataAssignment.Application.Interfaces.Services;
-using OdataAssignment.Domain.Entities;
 
 namespace OdataAssignment.Application.Services;
 
@@ -17,20 +17,12 @@ public class ConfirmedService : IConfirmedService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<ConfirmedResponseDto>> GetAllAsync()
-        => _mapper.Map<IEnumerable<ConfirmedResponseDto>>(await _repo.GetAllAsync());
-
-    public async Task<IEnumerable<ConfirmedResponseDto>> GetByFilterAsync(ConfirmedRequestDto request)
-    {
-        if (request.LocationId.HasValue)
-            return _mapper.Map<IEnumerable<ConfirmedResponseDto>>(await _repo.GetByLocationAsync(request.LocationId.Value));
-
-        if (request.StartDate.HasValue && request.EndDate.HasValue)
-            return _mapper.Map<IEnumerable<ConfirmedResponseDto>>(await _repo.GetByDateRangeAsync(request.StartDate.Value, request.EndDate.Value));
-
-        return await GetAllAsync();
-    }
+    public IQueryable<ConfirmedResponseDto> Query()
+        => _repo.Query().ProjectTo<ConfirmedResponseDto>(_mapper.ConfigurationProvider);
 
     public async Task<ConfirmedResponseDto?> GetByIdAsync(long id)
-        => _mapper.Map<ConfirmedResponseDto>(await _repo.GetByIdAsync(id));
+    {
+        var entity = await _repo.GetByIdAsync(id);
+        return _mapper.Map<ConfirmedResponseDto>(entity);
+    }
 }

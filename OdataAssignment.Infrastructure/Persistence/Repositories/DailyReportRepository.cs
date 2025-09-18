@@ -10,19 +10,9 @@ public class DailyReportRepository : IDailyReportRepository
 
     public DailyReportRepository(CovidDbContext context) => _context = context;
 
+    public IQueryable<DailyReport> Query() =>
+        _context.DailyReports.AsNoTracking();
+
     public async Task<DailyReport?> GetByIdAsync(long id) =>
-        await _context.DailyReports.FindAsync(id);
-
-    public async Task<IEnumerable<DailyReport>> GetAllAsync() =>
-        await _context.DailyReports.ToListAsync();
-
-    public async Task<IEnumerable<DailyReport>> GetByLocationAsync(int locationId) =>
-        await _context.DailyReports
-            .Where(r => r.LocationId == locationId)
-            .ToListAsync();
-
-    public async Task<IEnumerable<DailyReport>> GetByDateAsync(DateTime date) =>
-        await _context.DailyReports
-            .Where(r => r.ReportDate == date.Date)
-            .ToListAsync();
+        await _context.DailyReports.AsNoTracking().FirstOrDefaultAsync(r => r.ReportId == id);
 }
